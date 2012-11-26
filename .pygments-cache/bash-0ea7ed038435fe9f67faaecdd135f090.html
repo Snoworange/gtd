@@ -1,0 +1,21 @@
+<div class="highlight"><pre><span class="c"># By Henrik Nyh &lt;http://henrik.nyh.se/&gt; 2007-06-08</span>
+<span class="c"># Free to modify and redistribute with credit.</span>
+<span class="c">#</span>
+<span class="c"># If you get errors, make sure to set your PATH in ~/.bash_profile per</span>
+<span class="c"># http://www.macromates.com/textmate/manual/shell_commands#search_path.</span>
+<span class="c"># Adding /opt/local/bin (where it is for me) to avoid having to do this.</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/local/bin/:$PATH&quot;</span>
+
+. <span class="s2">&quot;${TM_SUPPORT_PATH}/lib/webpreview.sh&quot;</span>
+
+html_header <span class="s2">&quot;CapMate&quot;</span> <span class="s2">&quot;$TM_PROJECT_DIRECTORY&quot;</span>
+
+<span class="nb">cd</span> <span class="s2">&quot;$TM_PROJECT_DIRECTORY&quot;</span> 2&gt; /dev/null
+require_cmd cap
+<span class="o">[</span> -d app/controllers <span class="o">]</span> <span class="o">||</span> exit_show_html <span class="s2">&quot;Not in a Rails project!&quot;</span>
+
+ruby -e <span class="s1">&#39;class &lt;&lt; STDERR; alias_method :old_puts, :puts; def puts(m); old_puts(m.strip); Kernel.puts; end; end; load(`which cap`.strip);&#39;</span> deploy | pre
+
+html_footer
+</pre>
+</div>

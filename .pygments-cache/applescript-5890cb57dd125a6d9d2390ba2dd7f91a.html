@@ -1,0 +1,34 @@
+<div class="highlight"><pre><span class="k">set</span> <span class="nv">currentInput</span> <span class="k">to</span> <span class="nv">readPref</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="nv">currentInput</span> <span class="ow">is</span> <span class="s2">&quot;YUV&quot;</span> <span class="k">then</span>
+	<span class="k">set</span> <span class="nv">n</span> <span class="k">to</span> <span class="mi">1</span> <span class="c">-- steps from YUV to HDMI</span>
+	<span class="nv">writePref</span><span class="p">(</span><span class="s2">&quot;HDMI&quot;</span><span class="p">)</span>
+<span class="k">else</span>
+	<span class="k">set</span> <span class="nv">n</span> <span class="k">to</span> <span class="mi">5</span> <span class="c">-- steps from HDMI to YUV</span>
+	<span class="nv">writePref</span><span class="p">(</span><span class="s2">&quot;YUV&quot;</span><span class="p">)</span>
+<span class="k">end</span> <span class="k">if</span>
+
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;ZephIR Station&quot;</span>
+	<span class="k">repeat</span> <span class="nv">n</span> <span class="k">times</span>
+		<span class="nv">fire</span> <span class="nv">zephir</span> <span class="nv">command</span> <span class="s2">&quot;Toggle Digital Input&quot;</span> <span class="k">of</span> <span class="nv">component</span> <span class="s2">&quot;Fujitsu-Siemens Myrica TV&quot;</span>
+	<span class="k">end</span> <span class="k">repeat</span>
+<span class="k">end</span> <span class="k">tell</span>
+
+<span class="c">-- Persisting selection</span>
+
+<span class="k">property</span> <span class="nv">thePref</span> <span class="p">:</span> <span class="s2">&quot;home.automation.tv&quot;</span>
+<span class="k">property</span> <span class="nv">theKey</span> <span class="p">:</span> <span class="s2">&quot;digitalInput&quot;</span>
+
+<span class="k">on</span> <span class="nv">readPref</span><span class="p">()</span>
+	<span class="k">try</span>
+		<span class="nb">do shell script</span> <span class="s2">&quot;defaults read &quot;</span> <span class="o">&amp;</span> <span class="nv">thePref</span> <span class="o">&amp;</span> <span class="s2">&quot; &quot;</span> <span class="o">&amp;</span> <span class="nv">theKey</span>
+	<span class="nb">on</span> <span class="k">error</span>
+		<span class="nv">null</span>
+	<span class="k">end</span> <span class="k">try</span>
+<span class="k">end</span> <span class="nv">readPref</span>
+
+<span class="k">on</span> <span class="nv">writePref</span><span class="p">(</span><span class="nv">theValue</span><span class="p">)</span>
+	<span class="nb">do shell script</span> <span class="s2">&quot;defaults write &quot;</span> <span class="o">&amp;</span> <span class="nv">thePref</span> <span class="o">&amp;</span> <span class="s2">&quot; &quot;</span> <span class="o">&amp;</span> <span class="nv">theKey</span> <span class="o">&amp;</span> <span class="s2">&quot; &quot;</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">quoted form</span> <span class="k">of</span> <span class="nv">theValue</span><span class="p">)</span>
+<span class="k">end</span> <span class="nv">writePref</span>
+</pre>
+</div>

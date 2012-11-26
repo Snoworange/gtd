@@ -1,0 +1,22 @@
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="k">function</span> <span class="nf">lastfm_sidebar_module</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">global</span> <span class="nv">$scrobbler_user</span><span class="p">;</span>
+  <span class="nb">extract</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span> <span class="nb">function_exists</span><span class="p">(</span><span class="s1">&#39;get_scrobbler&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$before_module</span> <span class="o">.</span> <span class="nv">$before_title</span> <span class="o">.</span> <span class="nv">$title</span> <span class="o">.</span> <span class="nv">$after_title</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;span class=&quot;metalink&quot;&gt;&lt;a href=&quot;http://www.last.fm/user/</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$scrobbler_user</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&quot; class=&quot;feedlink&quot; title=&quot;My Last.fm profile&quot;&gt;&lt;img src=&quot;http://static.last.fm/matt/favicon.ico&quot; alt=&quot;Last.fm&quot; /&gt;&lt;/a&gt;&lt;/span&gt;</span>
+
+<span class="x">    </span><span class="cp">&lt;?php</span>
+    <span class="nx">get_scrobbler</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nv">$after_module</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">register_sidebar_module</span><span class="p">(</span><span class="s1">&#39;Last.fm module&#39;</span><span class="p">,</span> <span class="s1">&#39;lastfm_sidebar_module&#39;</span><span class="p">,</span> <span class="s1">&#39;sb-lastfm&#39;</span><span class="p">);</span>
+
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre>
+</div>

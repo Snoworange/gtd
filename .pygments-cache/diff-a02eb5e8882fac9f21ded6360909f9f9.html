@@ -1,0 +1,22 @@
+<div class="highlight"><pre><span class="gd">--- iCalEvents.js.old	2006-07-27 20:27:58.000000000 +0200</span>
+<span class="gi">+++ iCalEvents.js	2006-07-27 20:39:07.000000000 +0200</span>
+<span class="gu">@@ -262,7 +262,7 @@</span>
+ 					     currentDayEnd_getTime &gt; startDate_getTime))
+ 					displayTime = true;
+ 				else
+<span class="gd">-					displayTime = false;</span>
+<span class="gi">+					continue;</span>
+
+ 				if (currentDayStart_getTime &gt;= endDate_getTime) {
+ 					// TODO: optimization here using firstEventConsidered.
+<span class="gu">@@ -311,7 +311,7 @@</span>
+
+ 					paperHTML += &quot;&gt;&quot;;
+ 					if (summary)
+<span class="gd">-						paperHTML += summary;</span>
+<span class="gi">+						paperHTML += summary.replace(/\n.+/, &quot;&quot;);</span>
+ 					paperHTML += &quot;&lt;/td&gt;&lt;/tr&gt;&quot;;
+
+ 				} else {
+</pre>
+</div>

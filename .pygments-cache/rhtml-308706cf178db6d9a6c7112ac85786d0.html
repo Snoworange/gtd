@@ -1,0 +1,10 @@
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="ss">:before_content</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;left-column&quot;</span><span class="nt">&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;right-column&quot;</span><span class="nt">&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="ss">:sidebar</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="ss">:after_content</span> <span class="cp">%&gt;</span>
+</pre>
+</div>

@@ -1,0 +1,7 @@
+<div class="highlight"><pre><span class="nb">RewriteEngine</span> <span class="k">On</span>
+<span class="nb">RewriteBase</span> <span class="sx">/tumble</span>
+
+<span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-f
+<span class="nb">RewriteRule</span> ^(.*)$  proxy.php?url=http://malesca.tumblr.com/$1
+</pre>
+</div>

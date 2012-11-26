@@ -1,0 +1,32 @@
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="nv">$from</span> <span class="o">=</span> <span class="s2">&quot;malesca.tumblr.com&quot;</span><span class="p">;</span>
+<span class="nv">$unto</span> <span class="o">=</span> <span class="s2">&quot;henrik.nyh.se/tumble&quot;</span><span class="p">;</span>
+
+<span class="c1">// Because Dreamhost doesn&#39;t do remote fopens, and to get content-type</span>
+<span class="k">function</span> <span class="nf">fetch</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+	<span class="nv">$timeout</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// set to zero for no timeout</span>
+	<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+	<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_CONNECTTIMEOUT</span><span class="p">,</span> <span class="nv">$timeout</span><span class="p">);</span>
+	<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_FOLLOWLOCATION</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nv">$html</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+	<span class="nv">$content_type</span> <span class="o">=</span> <span class="nb">curl_getinfo</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLINFO_CONTENT_TYPE</span><span class="p">);</span>
+	<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+	<span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="nv">$html</span><span class="p">,</span> <span class="nv">$content_type</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">list</span><span class="p">(</span><span class="nv">$html</span><span class="p">,</span> <span class="nv">$content_type</span><span class="p">)</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]);</span>
+
+<span class="c1">// Fix root-relative links etc.</span>
+<span class="nv">$html</span> <span class="o">=</span> <span class="nb">preg_replace</span><span class="p">(</span><span class="s1">&#39;/\b(href|src|rel)=&quot;\//&#39;</span><span class="p">,</span> <span class="s1">&#39;$1=&quot;http://&#39;</span><span class="o">.</span><span class="nv">$unto</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nv">$html</span><span class="p">);</span>
+<span class="c1">// Replace the old URL with the new</span>
+<span class="nv">$html</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="nv">$from</span><span class="p">,</span> <span class="nv">$unto</span><span class="p">,</span> <span class="nv">$html</span><span class="p">);</span>
+
+<span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Content-type: </span><span class="si">$content_type</span><span class="s2">&quot;</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$html</span><span class="p">;</span>
+
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre>
+</div>

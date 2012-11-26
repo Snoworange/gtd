@@ -1,0 +1,15 @@
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">validates_format_of</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="sr">/\A[\w-]+\Z/</span>
+  <span class="n">validates_uniqueness_of</span> <span class="ss">:name</span>
+  <span class="n">validate</span> <span class="ss">:name_is_not_a_route</span>
+
+<span class="kp">protected</span>
+
+  <span class="k">def</span> <span class="nf">name_is_not_a_route</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Routing</span><span class="o">::</span><span class="no">Routes</span><span class="o">.</span><span class="n">recognize_path</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:get</span><span class="p">)</span> <span class="k">rescue</span> <span class="kp">nil</span>
+    <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="s2">&quot;conflicts with existing path (/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">path</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">path</span><span class="o">[</span><span class="ss">:username</span><span class="o">]</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+</pre>
+</div>

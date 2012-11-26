@@ -1,0 +1,78 @@
+<div class="highlight"><pre><span class="c">-- The Album art code is from http://www.macosxhints.com/article.php?story=20060406080910401</span>
+
+<span class="k">set</span> <span class="nv">theTitle</span> <span class="k">to</span> <span class="s2">&quot;Currently playing&quot;</span>
+
+<span class="k">set</span> <span class="nv">tempArt</span> <span class="k">to</span> <span class="s2">&quot;/tmp/growlart.tiff&quot;</span>
+<span class="k">set</span> <span class="nv">tempArtPath</span> <span class="k">to</span> <span class="nv">POSIX</span> <span class="nv">file</span> <span class="nv">tempArt</span>
+<span class="k">set</span> <span class="nv">tempArtFile</span> <span class="k">to</span> <span class="nv">tempArtPath</span> <span class="k">as </span><span class="nc">file </span><span class="nv">specification</span>
+
+<span class="k">set</span> <span class="nv">doMusic</span> <span class="k">to</span> <span class="no">false</span>
+<span class="k">set</span> <span class="nv">doArt</span> <span class="k">to</span> <span class="no">false</span>
+
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+  <span class="k">if</span> <span class="nv">player</span> <span class="na">state</span> <span class="ow">is</span> <span class="na">playing</span> <span class="k">then</span>
+    <span class="k">set</span> <span class="nv">theArtist</span> <span class="k">to</span> <span class="nv">artist</span> <span class="k">of</span> <span class="nv">current</span> <span class="nv">track</span>
+    <span class="k">set</span> <span class="nv">theSong</span> <span class="k">to</span> <span class="na">name</span> <span class="k">of</span> <span class="nv">current</span> <span class="nv">track</span>
+    <span class="k">set</span> <span class="nv">theAlbum</span> <span class="k">to</span> <span class="nv">album</span> <span class="k">of</span> <span class="nv">current</span> <span class="nv">track</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">count</span> <span class="k">of</span> <span class="nv">artwork</span> <span class="k">of</span> <span class="nv">current</span> <span class="nv">track</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="c">-- artwork is present</span>
+
+      <span class="nb">do shell script</span> <span class="s2">&quot;rm -rf &quot;</span> <span class="o">&amp;</span> <span class="nv">tempArt</span>
+
+      <span class="k">set</span> <span class="nv">artworkData</span> <span class="k">to</span> <span class="nb">data</span> <span class="k">of</span> <span class="nv">artwork</span> <span class="mi">1</span> <span class="k">of</span> <span class="nv">current</span> <span class="nv">track</span>
+
+      <span class="k">set</span> <span class="nv">fileRef</span> <span class="k">to</span> <span class="p">(</span><span class="nb">open for access</span> <span class="nv">tempArtPath</span> <span class="nv">with</span> <span class="nb">write</span> <span class="nv">permission</span><span class="p">)</span>
+      <span class="k">try</span>
+        <span class="nb">set eof</span> <span class="nv">fileRef</span> <span class="k">to</span> <span class="mi">512</span>
+        <span class="nb">write</span> <span class="nv">artworkData</span> <span class="k">to</span> <span class="nv">fileRef</span> <span class="nv">starting</span> <span class="nb">at</span> <span class="mi">513</span>
+        <span class="nb">close access</span> <span class="nv">fileRef</span>
+      <span class="nb">on</span> <span class="k">error</span> <span class="nv">errorMsg</span>
+        <span class="k">try</span>
+          <span class="nb">close access</span> <span class="nv">fileRef</span>
+        <span class="k">end</span> <span class="k">try</span>
+        <span class="k">error</span> <span class="nv">errorMsg</span>
+      <span class="k">end</span> <span class="k">try</span>
+
+      <span class="c">-- Convert to tiff</span>
+
+      <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;Finder&quot;</span> <span class="k">to</span> <span class="k">set</span> <span class="nv">creator</span> <span class="nv">type</span> <span class="k">of</span> <span class="nv">tempArtPath</span> <span class="k">to</span> <span class="s2">&quot;????&quot;</span>
+
+      <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;Image Events&quot;</span>
+        <span class="k">set</span> <span class="nv">theImage</span> <span class="k">to</span> <span class="nb">open</span> <span class="nv">tempArtFile</span>
+        <span class="nv">save</span> <span class="nv">theImage</span> <span class="k">as</span> <span class="nv">TIFF</span> <span class="k">in</span> <span class="nv">tempArtFile</span> <span class="nv">with</span> <span class="nv">replacing</span>
+      <span class="k">end</span> <span class="k">tell</span>
+
+      <span class="k">set</span> <span class="nv">doArt</span> <span class="k">to</span> <span class="no">true</span>
+
+    <span class="k">end</span> <span class="k">if</span>
+
+    <span class="k">set</span> <span class="nv">doMusic</span> <span class="k">to</span> <span class="no">true</span>
+
+  <span class="k">end</span> <span class="k">if</span>
+<span class="k">end</span> <span class="k">tell</span>
+
+<span class="k">set</span> <span class="nv">appName</span> <span class="k">to</span> <span class="nv">theTitle</span>
+<span class="k">set</span> <span class="nv">notification</span> <span class="k">to</span> <span class="nv">theTitle</span>
+<span class="k">set</span> <span class="nv">myAllNotesList</span> <span class="k">to</span> <span class="p">{</span><span class="nv">notification</span><span class="p">}</span>
+
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+   <span class="k">set</span> <span class="nv">isRunning</span> <span class="k">to</span> <span class="p">(</span><span class="na">name</span> <span class="k">of</span> <span class="nv">processes</span><span class="p">)</span> <span class="ow">contains</span> <span class="s2">&quot;GrowlHelperApp&quot;</span>
+<span class="k">end</span> <span class="k">tell</span>
+
+<span class="k">if</span> <span class="nv">isRunning</span> <span class="k">then</span>
+  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;GrowlHelperApp&quot;</span>
+    <span class="nb">register</span> <span class="k">as </span><span class="nc">application </span><span class="nv">appName</span>  <span class="nv">all</span> <span class="nv">notifications</span> <span class="nv">myAllNotesList</span>  <span class="nv">default</span> <span class="nv">notifications</span> <span class="nv">myAllNotesList</span>  <span class="nv">icon</span> <span class="k">of</span> <span class="nb">application</span> <span class="s2">&quot;iTunes&quot;</span>
+
+    <span class="k">if</span> <span class="nv">doMusic</span>
+      <span class="k">set</span> <span class="nv">theDesc</span> <span class="k">to</span> <span class="s2">&quot;Track: &quot;</span> <span class="o">&amp;</span> <span class="nv">theSong</span> <span class="o">&amp;</span> <span class="s2">&quot;\nAlbum: &quot;</span> <span class="o">&amp;</span> <span class="nv">theAlbum</span> <span class="o">&amp;</span> <span class="s2">&quot;\nArtist: &quot;</span> <span class="o">&amp;</span> <span class="nv">theArtist</span>
+      <span class="k">if</span> <span class="nv">doArt</span>
+        <span class="nv">notify</span> <span class="nv">with</span>  <span class="na">name</span> <span class="nv">notification</span>  <span class="na">title</span> <span class="nv">theTitle</span>  <span class="nv">description</span> <span class="nv">theDesc</span>  <span class="nb">application</span> <span class="na">name</span> <span class="nv">appName</span>  <span class="na">image</span> <span class="k">from</span> <span class="na">location</span> <span class="nv">tempArt</span>
+      <span class="k">else</span>
+        <span class="nv">notify</span> <span class="nv">with</span>  <span class="na">name</span> <span class="nv">notification</span>  <span class="na">title</span> <span class="nv">theTitle</span>  <span class="nv">description</span> <span class="nv">theDesc</span>  <span class="nb">application</span> <span class="na">name</span> <span class="nv">appName</span>
+      <span class="k">end</span> <span class="k">if</span>
+    <span class="k">else</span>
+      <span class="nv">notify</span> <span class="nv">with</span>  <span class="na">name</span> <span class="nv">notification</span>  <span class="na">title</span> <span class="nv">theTitle</span>  <span class="nv">description</span> <span class="s2">&quot;Nothing.&quot;</span>  <span class="nb">application</span> <span class="na">name</span> <span class="nv">appName</span>
+    <span class="k">end</span> <span class="k">if</span>
+  <span class="k">end</span> <span class="k">tell</span>
+<span class="k">end</span> <span class="k">if</span>
+</pre>
+</div>

@@ -1,0 +1,20 @@
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">String</span>
+  <span class="c1"># Replace the second of three capture groups with the given block.</span>
+  <span class="k">def</span> <span class="nf">midsub</span><span class="p">(</span><span class="n">regexp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="n">regexp</span><span class="p">)</span> <span class="p">{</span> <span class="vg">$1</span> <span class="o">+</span> <span class="k">yield</span><span class="p">(</span><span class="vg">$2</span><span class="p">)</span> <span class="o">+</span> <span class="vg">$3</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">wordwrap</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&lt;wbr /&gt;&quot;</span><span class="p">)</span>
+  <span class="n">text</span><span class="o">.</span><span class="n">midsub</span><span class="p">(</span><span class="sr">%r{(\A|&lt;/pre&gt;)(.*?)(\Z|&lt;pre(?: .+?)?&gt;)}im</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">outside_pre</span><span class="o">|</span>  <span class="c1"># Not inside &lt;pre&gt;&lt;/pre&gt;</span>
+    <span class="n">outside_pre</span><span class="o">.</span><span class="n">midsub</span><span class="p">(</span><span class="sr">%r{(\A|&gt;)(.*?)(\Z|&lt;)}m</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">outside_tags</span><span class="o">|</span>  <span class="c1"># Not inside &lt; &gt;, either</span>
+      <span class="n">outside_tags</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/(\S{</span><span class="si">#{</span><span class="n">width</span><span class="si">}</span><span class="sr">})(?=\S)/</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;#$1</span><span class="si">#{</span><span class="n">string</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nb">test</span> <span class="o">=</span> <span class="s2">&quot;Lorem ipsum dolor sit amet, &lt;pre&gt;consectetur&lt;/pre&gt; adipisicing elit, sed do eiusmod tempor &lt;pre class=&#39;longlatinwordicus&#39;&gt;incididunt&lt;/pre&gt; ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo &lt;a href=&#39;longlatinwordicus&#39;&gt;consequat&lt;/a&gt;. Duis aute irure dolor in &lt;pre class=&#39;longlatinwordicus&#39;&gt;&lt;code&gt;reprehenderit&lt;/code&gt;&lt;/pre&gt; in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;</span>
+
+<span class="nb">puts</span> <span class="n">wordwrap</span><span class="p">(</span><span class="nb">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre>
+</div>

@@ -1,0 +1,5 @@
+<div class="highlight"><pre><span class="k">new</span> <span class="nx">Ajax</span><span class="p">.</span><span class="nx">Request</span><span class="p">(</span><span class="nx">some_url</span><span class="p">,</span> <span class="p">{</span><span class="nx">method</span><span class="o">:</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="nx">parameters</span><span class="o">:</span> <span class="nx">some_parameters</span><span class="p">,</span> <span class="nx">onComplete</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">transport</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">eval</span><span class="p">(</span><span class="nx">transport</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+<span class="p">}});</span>
+</pre>
+</div>

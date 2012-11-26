@@ -13,6 +13,11 @@ group :development do
   gem 'rb-fsevent', '~> 0.9'
   gem 'stringex', '~> 1.4.0'
   gem 'liquid', '~> 2.3.0'
+  gem 'rake-minify'
+end
+
+group :production do
+  gem 'unicorn'
 end
 
 gem 'sinatra', '~> 1.3.2'

@@ -1,0 +1,10 @@
+<div class="highlight"><pre><span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;Adium&quot;</span>
+  <span class="k">set</span> <span class="nv">theContact</span> <span class="k">to</span> <span class="p">{</span><span class="s2">&quot;ICQ.123456/234567&quot;</span><span class="p">,</span> <span class="s2">&quot;Jabber.me@jabber.org/them@jabber.org&quot;</span><span class="p">,</span> <span class="s2">&quot;MSN.me@hotmail.com/them@hotmail.com&quot;</span><span class="p">}</span>
+  <span class="k">set</span> <span class="nv">rubyScript</span> <span class="k">to</span> <span class="s2">&quot;</span>
+<span class="s2">  SNIP</span>
+<span class="s2">&quot;</span>
+  <span class="k">set</span> <span class="no">AppleScript</span>&#39;s <span class="no">text item delimiters</span> <span class="k">to</span> <span class="s2">&quot; &quot;</span>
+  <span class="nb">do shell script</span> <span class="s2">&quot;ruby -e &quot;</span> <span class="o">&amp;</span> <span class="nb">quoted form</span> <span class="k">of</span> <span class="nv">rubyScript</span> <span class="o">&amp;</span> <span class="s2">&quot; &quot;</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nv">theContact</span> <span class="k">as </span><span class="nc">text</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+</div>

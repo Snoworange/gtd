@@ -1,0 +1,7 @@
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">admins_create_and_edit</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:create</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
+    <span class="n">actions</span> <span class="o">+=</span> <span class="nb">Array</span><span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:and</span><span class="o">]</span><span class="p">)</span>
+    <span class="n">before_filter</span> <span class="ss">:admin_only</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="n">actions</span>
+  <span class="k">end</span>
+</pre>
+</div>

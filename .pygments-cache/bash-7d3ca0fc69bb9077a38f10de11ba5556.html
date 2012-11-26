@@ -1,0 +1,9 @@
+<div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> ! -f <span class="s2">&quot;$TM_NEW_FILE&quot;</span> <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">   </span><span class="nv">TM_YEAR</span><span class="o">=</span><span class="sb">`</span>date +%Y<span class="sb">`</span> <span class="se">\</span>
+   <span class="nv">TM_DATE</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span> <span class="se">\</span>
+   <span class="nv">TM_USERNAME</span><span class="o">=</span><span class="sb">`</span>niutil -readprop / /users/<span class="se">\$</span>USER realname<span class="sb">`</span> <span class="se">\</span>
+   perl -pe <span class="s1">&#39;s/\$\{([^}]*)\}/$ENV{$1}/g&#39;</span> <span class="se">\</span>
+      &lt; template_in.txt &gt; <span class="s2">&quot;$TM_NEW_FILE&quot;</span>
+<span class="k">fi</span>
+</pre>
+</div>

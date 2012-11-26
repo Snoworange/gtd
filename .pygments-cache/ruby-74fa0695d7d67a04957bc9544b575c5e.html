@@ -1,0 +1,18 @@
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">unprotected_create!</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">previous_attr_protected</span>  <span class="o">=</span> <span class="n">read_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_protected&quot;</span><span class="p">)</span>
+    <span class="n">previous_attr_accessible</span> <span class="o">=</span> <span class="n">read_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_accessible&quot;</span><span class="p">)</span>
+
+    <span class="n">write_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_protected&quot;</span><span class="p">,</span>  <span class="kp">nil</span><span class="p">)</span>
+    <span class="n">write_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_accessible&quot;</span><span class="p">,</span> <span class="kp">nil</span><span class="p">)</span>
+
+    <span class="n">creation</span> <span class="o">=</span> <span class="n">create!</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">write_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_protected&quot;</span><span class="p">,</span>  <span class="n">previous_attr_protected</span><span class="p">)</span>
+    <span class="n">write_inheritable_attribute</span><span class="p">(</span><span class="s2">&quot;attr_accessible&quot;</span><span class="p">,</span> <span class="n">previous_attr_accessible</span><span class="p">)</span>
+
+    <span class="n">creation</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>

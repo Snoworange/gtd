@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">get_focused_form</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">GM_addStyle</span><span class="p">(</span><span class="s2">&quot;input:focus, select:focus {background-attachment:fixed;}&quot;</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+	<span class="nx">with_each</span><span class="p">(</span><span class="s2">&quot;//input | //select&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">bAt</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="kc">null</span><span class="p">).</span><span class="nx">backgroundAttachment</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nx">bAt</span> <span class="o">==</span> <span class="s2">&quot;fixed&quot;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="p">(</span><span class="nx">result</span> <span class="o">=</span> <span class="nx">element</span><span class="p">);</span>  <span class="c1">// Return into get_focused_form</span>
+	<span class="p">});</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">form</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>

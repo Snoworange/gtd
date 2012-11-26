@@ -1,0 +1,64 @@
+<div class="highlight"><pre><span class="c">-- iPhoto quick keyword tagging</span>
+<span class="c">-- by Henrik Nyh &lt;http://henrik.nyh.se&gt; 2006-08-14</span>
+<span class="c">-- Free to modify, but please credit.</span>
+<span class="c">--</span>
+<span class="c">-- KNOWN ISSUES:</span>
+<span class="c">-- Does not handle non-ASCII very well.</span>
+
+<span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;iPhoto&quot;</span>
+  <span class="c">-- Fetch keywords</span>
+  <span class="k">set</span> <span class="nb">the</span> <span class="nv">keys</span> <span class="k">to</span> <span class="nb">the</span> <span class="na">name</span> <span class="k">of</span> <span class="nb">every</span> <span class="nv">keyword</span> <span class="nb">whose</span> <span class="na">name</span> <span class="ow">is not</span> <span class="s2">&quot;_Favorite_&quot;</span>
+
+  <span class="c">-- Prompt</span>
+  <span class="nb">activate</span>
+  <span class="k">set</span> <span class="nv">theDialog</span> <span class="k">to</span> <span class="nb">display dialog</span> <span class="s2">&quot;Tags to apply, comma-separated:&quot;</span> <span class="nv">default</span> <span class="nv">answer</span> <span class="s2">&quot;&quot;</span> <span class="nb">buttons</span> <span class="p">{</span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span> <span class="s2">&quot;Tag&quot;</span><span class="p">}</span> <span class="nv">default</span> <span class="nb">button</span> <span class="s2">&quot;Tag&quot;</span>
+  <span class="k">set</span> <span class="nv">tags</span> <span class="k">to</span> <span class="na">text returned</span> <span class="k">of</span> <span class="nv">theDialog</span>
+<span class="k">end</span> <span class="k">tell</span>
+
+<span class="c">-- Add or remove tags?</span>
+
+<span class="k">set</span> <span class="no">AppleScript</span>&#39;s <span class="no">text item delimiters</span> <span class="k">to</span> <span class="s2">&quot;&quot;</span>
+<span class="k">set</span> <span class="nv">charsTags</span> <span class="k">to</span> <span class="nb">the</span> <span class="nb">text</span> <span class="nb">items</span> <span class="k">of</span> <span class="nv">tags</span>
+<span class="k">set</span> <span class="nv">removeTags</span> <span class="k">to</span> <span class="p">(</span><span class="nb">the</span> <span class="nb">first</span> <span class="nb">item</span> <span class="k">of</span> <span class="nv">charsTags</span> <span class="ow">is</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nv">removeTags</span> <span class="k">then</span> <span class="k">set</span> <span class="nb">the</span> <span class="nv">tags</span> <span class="k">to</span> <span class="nb">the</span> <span class="nv">rest</span> <span class="k">of</span> <span class="nv">charsTags</span> <span class="k">as </span><span class="nc">string</span>
+
+<span class="c">-- Match abbreviated keywords to actual keywords in Ruby</span>
+
+<span class="k">set</span> <span class="no">AppleScript</span>&#39;s <span class="no">text item delimiters</span> <span class="k">to</span> <span class="s2">&quot;\&quot;,\&quot;&quot;</span>
+<span class="k">set</span> <span class="nb">the</span> <span class="nv">keys</span> <span class="k">to</span> <span class="nb">the</span> <span class="nv">keys</span> <span class="k">as </span><span class="nc">string</span>
+
+<span class="k">set</span> <span class="nb">the</span> <span class="nv">expandedTags</span> <span class="k">to</span> <span class="nb">do shell script</span> <span class="s2">&quot;ruby -e &#39;</span>
+<span class="s2">tags = \&quot;&quot;</span> <span class="o">&amp;</span> <span class="nv">tags</span> <span class="o">&amp;</span> <span class="s2">&quot;\&quot;.split(/\\s*,\\s*/)</span>
+<span class="s2">normalized = {}</span>
+<span class="s2">[\&quot;&quot;</span> <span class="o">&amp;</span> <span class="nv">keys</span> <span class="o">&amp;</span> <span class="s2">&quot;\&quot;].each {|kw| normalized[kw.downcase] = kw}</span>
+
+<span class="s2">tag_with = tags.map do |tag|</span>
+<span class="s2">  normalized[</span>
+<span class="s2">    normalized.keys.sort.find {|kw| kw.index(tag)==0} ||  # prefix match</span>
+<span class="s2">    normalized.keys.sort.find {|kw| kw.gsub(/(\\w)\\w*\\s*/, %q{\\1}) == tag}  # initials match</span>
+<span class="s2">  ]</span>
+<span class="s2">end.compact.uniq.join(%{,})</span>
+<span class="s2">puts tag_with</span>
+<span class="s2">&#39;&quot;</span>
+
+<span class="c">-- Split keywords</span>
+<span class="k">set</span> <span class="no">AppleScript</span>&#39;s <span class="no">text item delimiters</span> <span class="k">to</span> <span class="s2">&quot;,&quot;</span>
+<span class="k">set</span> <span class="nv">expandedTags</span> <span class="k">to</span> <span class="nb">the</span> <span class="nb">text</span> <span class="nb">items</span> <span class="k">of</span> <span class="nv">expandedTags</span>
+
+<span class="c">-- Apply or remove keywords</span>
+<span class="k">repeat</span> <span class="nv">with</span> <span class="na">tag</span> <span class="k">in</span> <span class="nv">expandedTags</span>
+  <span class="k">if</span> <span class="nv">removeTags</span> <span class="c">-- remove keywords</span>
+    <span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;iPhoto&quot;</span>
+        <span class="k">repeat</span> <span class="nv">with</span> <span class="nv">pic</span> <span class="k">in</span> <span class="p">(</span><span class="nv">selection</span> <span class="k">as</span> <span class="nv">list</span><span class="p">)</span>
+          <span class="nv">remove</span> <span class="nv">keyword</span> <span class="na">tag</span> <span class="k">from</span> <span class="nv">pic</span>
+        <span class="k">end</span> <span class="k">repeat</span>
+    <span class="k">end</span> <span class="k">tell</span>
+    <span class="c">-- iPhoto seems to need this to refresh the display</span>
+    <span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;SystemUIServer&quot;</span> <span class="k">to</span> <span class="nb">activate</span>
+    <span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;iPhoto&quot;</span> <span class="k">to</span> <span class="nb">activate</span>
+  <span class="k">else</span> <span class="c">-- apply keywords</span>
+    <span class="k">tell</span> <span class="nv">app</span> <span class="s2">&quot;iPhoto&quot;</span> <span class="k">to</span> <span class="nv">assign</span> <span class="nv">keyword</span> <span class="nv">string</span> <span class="na">tag</span>
+  <span class="k">end</span> <span class="k">if</span>
+<span class="k">end</span> <span class="k">repeat</span>
+</pre>
+</div>

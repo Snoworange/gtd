@@ -1,183 +1,174 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
 
-@font-face {
-	  font-family: "League";
-	    src: url('/font/LeagueGothic.otf');
+html {
+  // We can't just set $page-bg since we also want to remove the image.
+  background: #FFF;
+}
+
+.toggle-sidebar {
+  display: none;
+}
+
+.blog-footer {
+  background: transparent;
+  text-shadow: none;
+}
+
+
+// Header
+
+.site-header {
+  text-align: center;
+}
+
+.pug {
+  a {
+    text-decoration: none;
+  }
+  img {
+    border: none;
+    @include box-shadow(none);
+    width: 172px;
+    height: 192px;
+  }
+}
+
+.site-title {
+  $title-color: #daa520;
+
+  font-size: 28px;
+  color: $title-color;
+  margin-bottom: 0.5em;
+
+  a {
+    text-decoration: none;
+    &:hover {
+      color: $title-color;
     }
+  }
+}
 
-    a:visited, #content .blog-index article h1 a:hover { color: #F2583E; }
+.site-intro {
+  font-family: $sans;
+  font-size: 14px;
+  line-height: 1.4em;
+}
 
-
-    /* ----- main layout ----- */
-
-
-    html { background: #262C33 url("../images/background.png"); }
-
-    body { font-size: 1em; }
-
-    body > div { background-image: none; }
-
-    body > div > div { background-image: none; }
-
-
-    /* ----- header ----- */
+.search {
+  width: 190px;
+  font-size: 16px;
+}
 
 
-    body > header{
-	      background: none;
-	        /*padding: 1.6em 0 1em 0*/
-	        padding: 0.5em 0 0.5em 0
-	}
+// Sidebar
 
-	body > header h1{
-	  font-size: 2.8em;
-	    padding-left: 20px;
-	      text-shadow: rgba(0, 0, 0, 0.8) 0 0 8px;
-	      }
+.service-icon {
+  margin: 2em 0 0.5em;
+  text-align: center;
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+  img {
+    border: none;
+    @include box-shadow(none);
+  }
+}
 
-	      body > header h2{
-	        font-size: 0.5em;
-	  letter-spacing: 1px;
-	    margin-top: -1.4em;
-	      padding-left: 20px;
-	      }
+#tweets,
+#pinboard_linkroll {
+  font-size: 0.9em;
+}
 
-	      body > nav {
-	        padding-top: .15em;
-	  padding-bottom: .15em;
-	  }
+.twitter-date,
+.pin-description,
+.pin-tag {
+  font-size: 80%;
+}
 
-	  body > nav a{
-	    font-size: 1em;
-	      line-height: 1.4em;
-	      }
+.pin-title {
+  margin-bottom: 0 !important;
+}
+.pin-description {
+  margin-top: 3px;
+  margin-bottom: 0 !important;
+}
 
-	      body > nav form .search{
-	        padding: .2em .3em;
-	}
+#tweets {
+  .twitter-date {
+    display: block;
+  }
 
+  .loading {
+    padding: 0;
 
-	/* ----- Content ----- */
-
-
-	#content .blog-index article h1 {
-	  font-size: 1.8em;
-	    font-weight: normal;
-	    }
-
-	    #content .blog-index article h1, #content .blog-index article h1 a, article header h1, article header h1 a{
-	      color: #555555 !important;
-	      }
-
-	      h1 { font-size: 1.8em; }
-
-	      h1 span{
-	        font-weight: normal;
-	  color: #E0841B;
-	  }
-
-	  article h2, article h3, article header h1{
-	    font-weight: normal;
-	    }
-
-	    .blog-index article h1 a:hover{ text-decoration: none; }
-
-	    article p {
-	      text-align:justify;
-	        margin-bottom: 1em;
-	}
+    &:before {
+      background: none;
+      height: auto;
+    }
+  }
+}
 
 
-	/* ----- Sidebar ----- */
+// Index
+
+@media only screen and (min-width: 768px) {
+  #index #blog-archives {
+    margin-top: 60px;
+  }
+}
 
 
-	aside.sidebar section h1 { letter-spacing: 0.1em; }
+// Index/tag
 
-	aside.sidebar a { text-decoration: none; }
-
-	.toggle-sidebar{display: none;}
-
-	ul#gh_repos > li > a{
-	  display: block;
-	    font-weight: bold;
-	      margin-bottom: 0.4em;
-	      }
-
-	      aside.sidebar{
-	        -moz-border-radius-topright: 0.4em;
-	  -webkit-border-radius: 0 0.4em 0 0;
-	    border-radius: 0 0.4em 0 0;
-	    }
-
-
-	    /* ----- Footer ----- */
+#blog-archives {
+  h2 {
+    top: -3px;
+  }
+  .entry-title {
+    font-size: 1em;
+  }
+  .categories {
+    font-size: 0.9em;
+  }
+  time {
+    font-size: 0.8em;
+    top: 1.3em;
+  }
+}
 
 
-	    body > footer{
-	      -moz-border-radius: 0;
-	        -webkit-border-radius: 0;
-	  border-radius:0;
-	    margin-bottom: 0;
-	    }
+// Entry
+
+.entry-title a {
+  text-decoration: none;
+  color: $text-color;
+}
+
+article header {
+  p.meta {
+    position: static;
+  }
+  time {
+    text-transform: none;
+  }
+}
 
 
-	    /* ----- 404 ----- */
+// About
 
+.my-photo {
+  margin: 0 0 1em 0;
+  a {
+    text-decoration: none;
+    white-space: normal;
+  }
+}
 
-	    .notfound404 article{
-	      margin-left: 0 !important;
-	      }
-
-
-	      /* ----- Media queries ----- */
-
-
-	      @media only screen and (min-width: 550px) {
-
-	        body > header h1{
-	      background: url("/favicon.png") no-repeat 0 8px;
-	            padding-left: 60px;
-	      }
-
-	        body > header h2 { padding-left: 60px; }
-
-	  body > footer { margin-bottom: 3em; }
-	  }
-
-	  @media only screen and (min-width: 1040px) {
-
-	    body > nav {
-	        -moz-border-radius: 0.4em;
-	    -webkit-border-radius: 0.4em;
-	        border-radius:0.4em;
-	    margin-bottom: 2em;
-	      }
-
-	        body > footer{
-	      -moz-border-radius-bottomleft: 0.4em;
-	            -moz-border-radius-bottomright: 0.4em;
-	          -webkit-border-radius: 0 0 0.4em 0.4em;
-	        border-radius: 0 0 0.4em 0.4em;
-	  }
-
-	    #main{
-	          -moz-border-radius-topleft: 0.4em;
-	        -moz-border-radius-topright: 0.4em;
-	      -webkit-border-radius: 0.4em 0.4em 0 0;
-	            border-radius: 0.4em 0.4em 0 0;
-	      }
-
-	        #content{
-	      -moz-border-radius-topleft: 0.4em;
-	            -webkit-border-radius: 0.4em 0 0 0;
-	          border-radius: 0.4em 0 0 0;
-	    }
-
-	      #content .blog-index a[rel="full-article"]{
-	            -webkit-border-radius: 6px;
-	          -moz-border-radius: 6px;
-	        border-radius: 6px;
-	  }
-	  }
-
+@media only screen and (min-width: 550px) {
+  .my-photo {
+    float: left;
+    margin: 0 1em 1em 0;
+  }
+}

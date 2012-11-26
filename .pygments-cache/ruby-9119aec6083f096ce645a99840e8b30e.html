@@ -1,0 +1,23 @@
+<div class="highlight"><pre><span class="c1"># require or paste the Preferences class here</span>
+
+<span class="c1"># Store some values</span>
+
+<span class="n">prefs</span> <span class="o">=</span> <span class="no">Preferences</span><span class="o">[</span><span class="ss">:foo_bundle</span><span class="o">]</span>
+<span class="n">prefs</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span>
+<span class="n">prefs</span><span class="o">[</span><span class="ss">:age</span><span class="o">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">prefs</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span><span class="ss">:likes_pizza</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:likes_broccoli</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">)</span>
+
+<span class="c1"># A reboot later…</span>
+
+<span class="n">prefs</span> <span class="o">=</span> <span class="no">Preferences</span><span class="o">[</span><span class="ss">:foo_bundle</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="s2">&quot;Your name is </span><span class="si">#{</span><span class="n">prefs</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span><span class="si">}</span><span class="s2"> and you are </span><span class="si">#{</span><span class="n">prefs</span><span class="o">[</span><span class="ss">:age</span><span class="o">]</span><span class="si">}</span><span class="s2"> years old.&quot;</span>
+<span class="nb">puts</span> <span class="s2">&quot;I know all this:&quot;</span>
+<span class="nb">p</span> <span class="n">prefs</span><span class="o">.</span><span class="n">to_hash</span>
+
+<span class="c1"># Forget age</span>
+<span class="n">prefs</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:age</span><span class="p">)</span>
+
+<span class="c1"># Forget everything</span>
+<span class="n">prefs</span><span class="o">.</span><span class="n">clear!</span>
+</pre>
+</div>

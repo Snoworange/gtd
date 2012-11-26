@@ -1,0 +1,37 @@
+<div class="highlight"><pre><span class="k">set</span> <span class="nv">closedCount</span> <span class="k">to</span> <span class="mi">0</span>
+<span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+
+  <span class="k">if</span> <span class="ow">not</span> <span class="nv">UI</span> <span class="nv">elements</span> <span class="na">enabled</span> <span class="k">then</span>
+    <span class="k">try</span>
+      <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;TextMate&quot;</span> <span class="k">to</span> <span class="k">set</span> <span class="nv">answer</span> <span class="k">to</span> <span class="na">button returned</span> <span class="k">of</span> <span class="p">(</span><span class="nb">display dialog</span> <span class="s2">&quot;This command relies on the GUI scripting architecture of Mac OS X which is currently disabled.&quot;</span> <span class="o">&amp;</span> <span class="no">return</span> <span class="o">&amp;</span> <span class="no">return</span> <span class="o">&amp;</span> <span class="s2">&quot;You can activate it by selecting the checkbox \&quot;Enable access for assistive devices\&quot; in the Universal Access preference pane.&quot;</span> <span class="nb">buttons</span> <span class="p">{</span><span class="s2">&quot;OK&quot;</span><span class="p">}</span> <span class="nv">default</span> <span class="nb">button</span> <span class="mi">1</span> <span class="nv">with</span> <span class="nv">icon</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">on</span> <span class="k">error</span> <span class="nv">number</span> <span class="o">-</span><span class="mi">128</span>
+      <span class="c">-- User cancelled</span>
+    <span class="k">end</span> <span class="k">try</span>
+    <span class="no">return</span>
+  <span class="k">end</span> <span class="k">if</span>
+
+  <span class="k">tell</span> <span class="nv">process</span> <span class="s2">&quot;TextMate&quot;</span>
+    <span class="k">repeat</span> <span class="nv">with</span> <span class="nv">i</span> <span class="k">from</span> <span class="p">(</span><span class="nb">count</span> <span class="nb">windows</span><span class="p">)</span> <span class="k">to</span> <span class="mi">1</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span> <span class="c">-- iterate backwards so indices don&#39;t shift on close</span>
+      <span class="k">try</span>
+        <span class="k">tell</span> <span class="nb">the</span> <span class="nb">first</span> <span class="nv">UI</span> <span class="nv">element</span> <span class="k">of</span> <span class="nb">the</span> <span class="nb">first</span> <span class="nb">scroll</span> <span class="nv">area</span> <span class="k">of</span> <span class="na">window</span> <span class="nv">i</span>
+          <span class="k">if</span> <span class="nv">role</span> <span class="ow">is</span> <span class="s2">&quot;AxWebArea&quot;</span> <span class="k">then</span>
+            <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;TextMate&quot;</span> <span class="k">to</span> <span class="nb">close</span> <span class="na">window</span> <span class="nv">i</span>
+            <span class="k">set</span> <span class="nv">closedCount</span> <span class="k">to</span> <span class="nv">closedCount</span> <span class="o">+</span> <span class="mi">1</span>
+          <span class="k">end</span> <span class="k">if</span>
+        <span class="k">end</span> <span class="k">tell</span>
+      <span class="k">end</span> <span class="k">try</span>
+    <span class="k">end</span> <span class="k">repeat</span>
+  <span class="k">end</span> <span class="k">tell</span>
+
+<span class="k">end</span> <span class="k">tell</span>
+
+<span class="c">-- FIXME: This count is sometimes the expected value + 1 -- why?</span>
+<span class="k">if</span> <span class="nv">closedCount</span> <span class="ow">is</span> <span class="mi">0</span>
+  <span class="no">return</span> <span class="s2">&quot;No HTML output windows to close.&quot;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="nv">closedCount</span> <span class="ow">is</span> <span class="mi">1</span>
+  <span class="no">return</span> <span class="s2">&quot;Closed 1 HTML output window.&quot;</span>
+<span class="k">else</span>
+  <span class="no">return</span> <span class="s2">&quot;Closed &quot;</span><span class="o">&amp;</span><span class="nv">closedCount</span><span class="o">&amp;</span><span class="s2">&quot; HTML output windows.&quot;</span>
+<span class="k">end</span> <span class="k">if</span>
+</pre>
+</div>

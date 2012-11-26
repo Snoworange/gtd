@@ -1,0 +1,78 @@
+<div class="highlight"><pre><span class="c">-- Coda Light</span>
+<span class="c">-- By Henrik Nyh &lt;http://henrik.nyh.se&gt;, 2007-04-26</span>
+<span class="c">--</span>
+<span class="c">-- An AppleScript to start working on a web development project by</span>
+<span class="c">--  * opening the project in TextMate,</span>
+<span class="c">--  * opening related URLs in the default browser,</span>
+<span class="c">--  * opening the related favorite in Transmit (FTP) and</span>
+<span class="c">--  * opening a related SSH session in Terminal.</span>
+<span class="c">--</span>
+<span class="c">-- Inspired by Coda &lt;http://www.panic.com/coda/&gt;. Coda is a trademark of Panic, Inc.</span>
+
+<span class="c">----------------------------</span>
+<span class="c">-- Configure here</span>
+<span class="c">----------------------------</span>
+
+<span class="c">-- Full path to local file, TM project or folder</span>
+<span class="k">set</span> <span class="nv">localProject</span> <span class="k">to</span> <span class="s2">&quot;/tmp&quot;</span>
+
+<span class="c">-- These will be opened in the default browser</span>
+<span class="c">-- (Set to {} to open nothing)</span>
+<span class="k">set</span> <span class="nv">URLs</span> <span class="k">to</span> <span class="p">{</span><span class="s2">&quot;http://localhost/~me/somesite&quot;</span><span class="p">,</span> <span class="s2">&quot;http://example.com/somesite&quot;</span><span class="p">}</span>
+
+<span class="c">-- The name of a related Transmit favorite</span>
+<span class="c">-- (Set to &quot;&quot; if you don&#39;t want to open Transmit)</span>
+<span class="k">set</span> <span class="nv">transmitFavorite</span> <span class="k">to</span> <span class="s2">&quot;Some site&quot;</span>
+
+<span class="c">-- SSH server</span>
+<span class="c">-- (Set to &quot;&quot; if you don&#39;t want a SSH session)</span>
+<span class="k">set</span> <span class="nv">sshServer</span> <span class="k">to</span> <span class="s2">&quot;example.com&quot;</span>
+<span class="c">-- SSH username (set to &quot;&quot; to use defaults)</span>
+<span class="k">set</span> <span class="nv">sshUser</span> <span class="k">to</span> <span class="s2">&quot;&quot;</span>
+<span class="c">-- The SSH password must be entered manually; optionally set up DSA keys so you don&#39;t have to input it at all: see e.g. http://www.macosxhints.com/article.php?story=20011128174701140</span>
+
+<span class="c">----------------------------</span>
+<span class="c">-- Configuration ends</span>
+<span class="c">----------------------------</span>
+
+<span class="k">if</span> <span class="nv">transmitFavorite</span> <span class="ow">is not</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span>
+  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;Transmit&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">count</span> <span class="k">of</span> <span class="nb">documents</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">0</span> <span class="k">then</span>
+      <span class="nb">make</span> <span class="nb">new</span> <span class="na">document</span> <span class="nb">at</span> <span class="k">end</span>
+    <span class="k">end</span> <span class="k">if</span>
+    <span class="k">tell</span> <span class="na">document</span> <span class="mi">1</span>
+      <span class="k">set</span> <span class="nv">theTab</span> <span class="k">to</span> <span class="p">(</span><span class="nv">session</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">is</span> <span class="nv">connected</span> <span class="k">of</span> <span class="nv">session</span> <span class="mi">1</span> <span class="k">then</span>
+        <span class="k">set</span> <span class="nv">theTab</span> <span class="k">to</span> <span class="p">(</span><span class="nv">add</span> <span class="no">tab</span><span class="p">)</span>
+      <span class="k">end</span> <span class="k">if</span>
+      <span class="k">tell</span> <span class="nv">theTab</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nv">connect</span> <span class="k">to</span> <span class="nv">favorite</span> <span class="nv">with</span> <span class="na">name</span> <span class="nv">transmitFavorite</span><span class="p">)</span> <span class="k">then</span>
+          <span class="nb">display dialog</span> <span class="s2">&quot;Could not connect to favorite!&quot;</span> <span class="nb">buttons</span> <span class="s2">&quot;For shame!&quot;</span> <span class="nv">default</span> <span class="nb">button</span> <span class="mi">1</span> <span class="nv">with</span> <span class="nv">icon</span> <span class="mi">1</span>
+        <span class="k">end</span> <span class="k">if</span>
+      <span class="k">end</span> <span class="k">tell</span>
+    <span class="k">end</span> <span class="k">tell</span>
+  <span class="k">end</span> <span class="k">tell</span>
+<span class="k">end</span> <span class="k">if</span>
+
+
+<span class="k">if</span> <span class="nv">sshServer</span> <span class="ow">is not</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span>
+  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;Terminal&quot;</span>
+    <span class="k">if</span> <span class="nv">sshUser</span> <span class="ow">is not</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span>
+      <span class="k">set</span> <span class="nv">sshUser</span> <span class="k">to</span> <span class="nv">sshUser</span> <span class="o">&amp;</span> <span class="s2">&quot;@&quot;</span>
+    <span class="k">end</span> <span class="k">if</span>
+    <span class="nv">do</span> <span class="nv">script</span> <span class="s2">&quot;ssh &quot;</span> <span class="o">&amp;</span> <span class="nv">sshUser</span> <span class="o">&amp;</span> <span class="nv">sshServer</span>
+  <span class="k">end</span> <span class="k">tell</span>
+<span class="k">end</span> <span class="k">if</span>
+
+<span class="k">repeat</span> <span class="nv">with</span> <span class="nv">anURL</span> <span class="k">in</span> <span class="nv">URLs</span>
+  <span class="nb">open location</span> <span class="nv">anURL</span> <span class="c">-- in default browser</span>
+<span class="k">end</span> <span class="k">repeat</span>
+
+<span class="k">if</span> <span class="nv">localProject</span> <span class="ow">is not</span> <span class="s2">&quot;&quot;</span> <span class="k">then</span>
+  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;TextMate&quot;</span>
+    <span class="nb">open</span> <span class="nv">POSIX</span> <span class="nv">file</span> <span class="nv">localProject</span> <span class="k">as</span> <span class="nv">alias</span>
+    <span class="nb">activate</span>
+  <span class="k">end</span> <span class="k">tell</span>
+<span class="k">end</span> <span class="k">if</span>
+</pre>
+</div>
