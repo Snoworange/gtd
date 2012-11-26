@@ -1,15 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://gtd.doit.im//blog/2012/11/26/a-loser-to-winner-by-gtd/</loc>
+        <lastmod>2012-11-26T18:37:05+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://gtd.doit.im//archives/</loc>
-        <lastmod>2012-11-26T18:29:49+08:00</lastmod>
+        <lastmod>2012-11-26T18:37:05+08:00</lastmod>
     </url>
     <url>
         <loc>http://gtd.doit.im//blog/archives/</loc>
-        <lastmod>2012-11-26T18:29:49+08:00</lastmod>
+        <lastmod>2012-11-26T18:37:05+08:00</lastmod>
     </url>
     <url>
         <loc>http://gtd.doit.im//</loc>
-        <lastmod>2012-11-26T18:29:49+08:00</lastmod>
+        <lastmod>2012-11-26T18:37:05+08:00</lastmod>
     </url>
 </urlset>

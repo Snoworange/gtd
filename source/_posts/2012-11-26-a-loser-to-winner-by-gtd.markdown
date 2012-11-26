@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "用GTD的工作方式改善自我"
+title: "用GTD的工作方式改善自我之屡战屡败"
 date: 2012-11-26 18:32
 comments: true
-categories: 小说
+categories: [GTD,用GTD的工作方式改善自我]
 ---
 
 （1）屡战屡败
