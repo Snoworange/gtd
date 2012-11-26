@@ -3,9 +3,9 @@ layout: post
 title: "用GTD的工作方式改善自我 Part 5"
 date: 2012-11-26 18:32
 comments: true
-categories: [GTD,用GTD的工作方式改善自我]
+categories: [GTD,GTD way of working to improve the self]
 ---
-
+文 / Nancy
 ## 向拖延症开战
 
 最近几年，拖延症这个词非常火，豆瓣上有个拖延症小组，甚至还有一个调侃这个小组的段子——拖延症小组居然成功组织了第一次线下活动！

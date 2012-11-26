@@ -3,9 +3,9 @@ layout: post
 title: "用GTD的工作方式改善自我 Part 1"
 date: 2012-11-22 18:32
 comments: true
-categories: [GTD,用GTD的工作方式改善自我]
+categories: [GTD,GTD way of working to improve the self]
 ---
-
+文 / Nancy
 ## 屡战屡败
 
 不知道有多少人会有这样的感觉——在某一天的某一时刻，也许是从清晨的阳光里醒来，也许是加班回家的路上走到路灯下，又或者其他任意时刻，突然觉得，日子不能这么过下去了。

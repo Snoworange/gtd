@@ -3,9 +3,9 @@ layout: post
 title: "用GTD的工作方式改善自我 Part 4"
 date: 2012-11-25 18:32
 comments: true
-categories: [GTD,用GTD的工作方式改善自我]
+categories: [GTD,GTD way of working to improve the self]
 ---
-
+文 / Nancy
 ## GTD详解
 
 第一个是“收集箱”，首先，把我近期所有需要做的事都列在其中。因为复习考研时的任务都已经完成，所以这里以我近期的工作来举例吧。
@@ -21,8 +21,7 @@ categories: [GTD,用GTD的工作方式改善自我]
 8. 考GMAT，这是一个遥远的目标，存在于计划中，不知何时实施，但必须记住。
 9. 看电影Life of Pi。
 
-把所有工作都输入收集箱后，得到如下界面。
-part4-1
+把所有工作都输入收集箱后,
 
 接下来就要处理收集箱，根据Get Things Done这本书里介绍的流程：
 
@@ -35,7 +34,7 @@ part4-1
 把收集箱的任务按项处理完后，得到如下界面。
 
 查看日程：
-part4-2
+![Part 4](http://gtd.doit.im/images/loser/p4_2.jpg)
 
 当然也可以按照情境或者项目来查看。
 
