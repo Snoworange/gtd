@@ -1,8 +1,8 @@
 <header class="site-header">
   <h1 class="site-title"><a href="{{ root_url }}/">{{ site.title }}</a></h1>
   <p class="site-intro">
-    A blog by <a href="http://doit.im/">GTD</a>.
-    <a href="{{ site.subscribe_rss }}">Subscribe by RSS.</a>
+    <a href="/about/">GTD博客</a>.
+    <a href="{{ site.subscribe_rss }}">订阅</a>
   </p>
 
   {% if site.simple_search %}
@@ -13,4 +13,6 @@
     </fieldset>
   </form>
   {% endif %}
+
+  {% include sidebars/sections/recent_posts.html %}
 </header>

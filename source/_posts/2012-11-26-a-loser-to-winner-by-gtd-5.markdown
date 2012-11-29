@@ -63,7 +63,7 @@ categories: [GTD,GTD way of working to improve the self]
 这个我想不需要我教了：）
 
 
-* * *
+
 
 最后说点好消息吧。
 
