@@ -1,4 +1,3 @@
-This [Octopress](http://octopress.org)-powered blog can be seen here: <http://henrik.nyh.se/>
 
 * [Octopress on GitHub](https://github.com/imathis/octopress)
 * [Octopress docs](http://octopress.org/docs/)
