@@ -27,7 +27,11 @@ body > header h1 {
   font-family: $header-title-font-family;
   font-weight: normal;
   line-height: 1.2em;
-  margin-bottom: 0.6667em;
+  margin-bottom: 0.6667em;  
+}
+h1 a, h1 a:visited, h1 a:hover {
+  color: #777;
+  text-decoration: none;
 }
 body > header h2 {
   font-family: $header-subtitle-font-family;
@@ -78,7 +82,7 @@ p, blockquote, ul, ol {
   min-height: 1.5em;
 }
 blockquote ol li {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 blockquote ul li {

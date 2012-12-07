@@ -4,15 +4,4 @@
     <a href="/about/">GTD博客</a>.
     <a href="{{ site.subscribe_rss }}">订阅</a>
   </p>
-
-  {% if site.simple_search %}
-  <form action="{{ site.simple_search }}" method="get">
-    <fieldset role="search">
-      <input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}" />
-      <input class="search" type="search" name="q" results="0" placeholder="Search via Google"/>
-    </fieldset>
-  </form>
-  {% endif %}
-
-  {% include sidebars/sections/recent_posts.html %}
 </header>
