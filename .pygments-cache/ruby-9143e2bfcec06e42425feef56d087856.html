@@ -1,7 +1,0 @@
-<div class="highlight"><pre><span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;Getting &lt;a href=&quot;#&quot; id=&quot;foo&quot;&gt;rid&lt;/a&gt; of &lt;code id=&quot;bar&quot;&gt;id&lt;/code&gt; attributes, but not in text: id=&quot;not this&quot;.&#39;</span>
-
-<span class="n">html</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/&lt;(.*?)&gt;/</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">innards</span><span class="o">|</span> <span class="n">innards</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/ id=(&quot;|&#39;).*?\1/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">}</span>
-
-<span class="c1"># =&gt; Getting &lt;a href=&quot;#&quot;&gt;rid&lt;/a&gt; of &lt;code&gt;id&lt;/code&gt; attributes, but not in text: id=&quot;not this&quot;.</span>
-</pre>
-</div>

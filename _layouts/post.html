@@ -1,0 +1,60 @@
+---
+layout: page
+---
+
+<article itemscope itemtype="http://schema.org/Article" class="lost-post">
+{{ content }}
+</article>
+<p class="lost-pagebtn">
+<i class="icon-time"></i>{{  page.date | date: "%B %e,%Y" }} &nbsp;
+<i class="icon-cogs"></i>
+{% for cat in page.categories %} 
+    <a href="/categories.html#{{ cat }}-ref" title="{{ cat }}" rel="category">{{ cat }}</a>
+{% endfor %}
+&nbsp;&nbsp;
+<i class="icon-tags"></i>
+{% for tag in page.tags %}
+      <a href="/tags.html#{{ tag }}-ref" title="{{ tag }}" rel="tag">{{ tag }} &nbsp;</a>
+{% endfor %} 
+<p class="lost-anno" style="text-align:right;">
+  <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_qzone"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6526400" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+</p>
+<br/><br/>
+<section class="fn-clear">
+  <h2>Related Posts:</h2>
+  <ul>
+  {% for post in site.related_posts limit:4 %}
+      <li class="related">
+        <time datetime="{{ post.date| date_to_xmlschema }}">{{ post.date| date: "%B %e,%Y" }}</time>
+        ---
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </li>
+  {% endfor %}
+  </ul>
+</section>
+
+<section class="lost-nextpage fn-clear">
+      {% if page.previous %}
+        <div class="lost-nextpage-left"><i class="icon-circle-arrow-left"></i><a href="{{ page.previous.url }}" rel="prev" title="{{ page.previous.title }}">前一篇：{{ page.previous.title }}</a></div>
+      {% endif %}
+      {% if page.next %}
+      <div class="lost-nextpage-right"> <i class="icon-circle-arrow-right"></i><a href="{{ page.next.url }}" rel="next" title="{{ page.next.title }}">后一篇：{{ page.next.title }}</a></div>
+      {% endif %}
+</section>
+<hr/>
+{% include comments.md %}

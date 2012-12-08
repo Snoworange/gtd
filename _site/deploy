@@ -1,0 +1,1 @@
+jekyll && rsync --progress -avz -e "ssh -p 2244" --password-file=~~/Dropbox/my/rsyncd.pas --delete _site/ adams@hg.doit.im:/home/adams/gtdfm
