@@ -8,3 +8,8 @@
 		 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	 })();
 </script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F608d1ec94c19dd9072fa1ea824aef002' type='text/javascript'%3E%3C/script%3E"));
+</script>
+

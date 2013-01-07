@@ -34,7 +34,7 @@ categories: [GTD way of working to improve the self]
 把收集箱的任务按项处理完后，得到如下界面。
 
 查看日程：
-![Part 4](http://gtd.doit.im/images/loser/p4_2.jpg)
+![Part 4](http://gtd.doit.im/static/images/loser/p4_2.jpg)
 
 当然也可以按照情境或者项目来查看。
 
